@@ -1,26 +1,30 @@
-package com.example.myapplication;
+package com.example.myproject;
 
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.myapplication.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private SongAdapter songAdapter;
-    private List<Song> songList;
+    private AudioAdapter songAdapter;
+    private List<Audio> songList;
     private static final int REQUEST_PERMISSION = 1;
+
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         songList = new ArrayList<>();
-        songAdapter = new SongAdapter(songList, this);
+        songAdapter = new AudioAdapter(songList, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(songAdapter);
 
@@ -41,11 +45,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadSongs() {
-        // کد بارگذاری آهنگ‌ها از حافظه
+
     }
+
+
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_PERMISSION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 loadSongs();

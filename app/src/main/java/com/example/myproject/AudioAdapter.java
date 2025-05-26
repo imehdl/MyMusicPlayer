@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myproject;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -8,17 +8,24 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.myapplication.R;
+
 import java.util.List;
 
-public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder> {
-    private List<Song> songList;
+public class AudioAdapter extends RecyclerView.Adapter<AudioAdapter.SongViewHolder> {
+    private List<Audio> musicTracks;
     private Context context;
     private MediaPlayer mediaPlayer;
 
-    public SongAdapter(List<Song> songList, Context context) {
-        this.songList = songList;
+    public AudioAdapter(List<Audio> songList, Context context) {
+        this.musicTracks = songList;
         this.context = context;
     }
+
+
+
+
 
     @NonNull
     @Override
@@ -27,30 +34,37 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
         return new SongViewHolder(view);
     }
 
+
+
+
+
     @Override
     public void onBindViewHolder(@NonNull SongViewHolder holder, int position) {
-        Song song = songList.get(position);
+        Audio song = musicTracks.get(position);
         holder.title.setText(song.getTitle());
         holder.artist.setText(song.getArtist());
 
         holder.itemView.setOnClickListener(v -> {
-            // پخش آهنگ
+
             if (mediaPlayer != null) {
-                mediaPlayer.release(); // آزاد کردن MediaPlayer قبلی
+                mediaPlayer.release();
             }
             mediaPlayer = MediaPlayer.create(context, Uri.parse(song.getPath()));
             mediaPlayer.start();
 
             mediaPlayer.setOnCompletionListener(mp -> {
-                mp.release(); // آزاد کردن MediaPlayer پس از اتمام پخش
+                mp.release();
                 mediaPlayer = null;
             });
         });
     }
 
+
+
+
     @Override
     public int getItemCount() {
-        return songList.size();
+        return musicTracks.size();
     }
 
     public static class SongViewHolder extends RecyclerView.ViewHolder {
